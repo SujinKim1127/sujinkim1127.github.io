@@ -1,0 +1,114 @@
+/* start custom scss snippet */
+
+// ── Palette ─────────────────────────────────────────────
+$brand-green:        #0A5728; // hover / active accent
+$brand-green-light:  #0d7a38; // base links & tag chips
+
+// ── All backgrounds white ───────────────────────────────
+html,
+body,
+.page__main,
+.page__viewport,
+.layout--page,
+.layout--home,
+.layout--article,
+.layout--articles,
+.hero,
+.article-list,
+.article,
+.card {
+  background-color: #fff !important;
+}
+
+// Header & footer: white background, dark-green text
+.header,
+.footer {
+  background-color: #fff !important;
+  border-bottom: 1px solid rgba($brand-green, .08);
+}
+.footer {
+  border-bottom: none;
+  border-top: 1px solid rgba($brand-green, .08);
+}
+
+// ── Hover colour = dark green (#0A5728) ─────────────────
+a:hover,
+a:active,
+a:focus,
+.header .navigation .item > a:hover,
+.article-list .card:hover .card__header,
+.article__header a:hover,
+.article-content a:hover,
+.author-links a:hover,
+.pagination a:hover {
+  color: $brand-green !important;
+}
+
+// ── Tags: green family ──────────────────────────────────
+.site-tags {
+  .tag-button:hover,
+  .tag-button-1:hover,
+  .tag-button-2:hover,
+  .tag-button-3:hover,
+  .tag-button-4:hover {
+    background-color: $brand-green !important;
+    color: #fff !important;
+  }
+}
+
+// Inline article tag chips (article footer / list meta)
+.article__tag,
+.tag {
+  &:hover {
+    background-color: $brand-green !important;
+    color: #fff !important;
+  }
+}
+
+// Text selection highlight
+::selection    { background: rgba($brand-green, .3); }
+::-moz-selection { background: rgba($brand-green, .3); }
+
+// ── Post images: block-level with vertical spacing ──────
+// Markdown images are inline by default, so they cling to the
+// surrounding text. Force them onto their own line with margin.
+// NOTE: the content wrapper class is `.article__content` (BEM), not
+// `.article-content` — using the wrong one silently applies nothing.
+.article__content {
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    margin: map-get($spacers, 4) auto; // vertical breathing room, centered
+  }
+
+  // image wrapped in a link (e.g. lightbox) — same treatment
+  a > img {
+    margin: map-get($spacers, 4) auto;
+  }
+
+  // collapsible <details> images shouldn't get doubled margin
+  details img {
+    margin: map-get($spacers, 3) auto;
+  }
+
+  // ── Inline code (`code`) visibility ───────────────────
+  // Theme background is only 6% opacity, and inline code has no
+  // font-size, so inside headings it inherits the big/bold size and
+  // the faint box disappears. Bump contrast + size it relative to
+  // the parent with `em` so it reads as a chip everywhere.
+  code {
+    font-size: .88em;
+    background-color: rgba($brand-green, .1);
+    color: #08421e;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    code {
+      font-size: .9em;              // relative → smaller than heading text
+      background-color: rgba($brand-green, .12);
+    }
+  }
+}
+
+/* end custom scss snippet */
