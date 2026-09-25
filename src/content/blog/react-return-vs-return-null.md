@@ -1,10 +1,8 @@
 ---
-layout: article
 title: "React에서 return; 과 return null; 뭐가 다를까 ?"
-key: react-return-vs-return-null
-tags:
-  - JavaScript
-  - React
+pubDate: 2026-01-24
+description: "React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ? 회사에서 아래와 같은 상황으로 <img width=\"400px\" src=\"https://velog.velcdn.com/images/su jin1127/post/d302c"
+tags: ["JavaScript", "React"]
 ---
 
 React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ?
@@ -12,8 +10,6 @@ React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ?
 회사에서 아래와 같은 상황으로 
 <img width="400px" src="https://velog.velcdn.com/images/su_jin1127/post/d302c325-b6c3-46b8-a035-089d089ea37a/image.png" />
 코드 리뷰가 제안된 PR이 있어서 스크럼때 react에서의 null과 undefined 차이에 대해 이야기를 하다가 _내가 자바스크립트와 리액트에 대해 잘 알고 있나?_ 라는 생각이 문득 들어서 자세하게 찾아봤다.
-
-<!--more-->
 
 ---
 
@@ -25,8 +21,6 @@ React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ?
 |18에서는 `null`과 결과 동일|   |
 |React 16에서는 에러 발생. |   |
 | `Error: Nothing was returned from render. This usually means a return statement is missing.`|  |
-
-
 
 - **React 16**
   - `return null;`
@@ -182,13 +176,10 @@ function reconcileChildFibersImpl(
 이때는 `count` 앞에 `!!` 연산자를 붙여주면 0이 글자로 찍히지 않는다.
     
 
-
-
 ## javascript에서 `null` vs `undefined`
 리액트는 javascript로 만들어졌으니까 좀 더 찾아봤다.
 
 <img width="300px" src="https://velog.velcdn.com/images/su_jin1127/post/50d1cca0-d737-44e6-8859-1b3f275c5dab/image.png"/>
-
 
 ```tsx
 const a = null;
@@ -198,7 +189,6 @@ const b = undefined;
 null과 undefined의 차이는 뭘까 ?
 undefined는 선언이 안된걸까 ? 라고 생각을 했다가
 어쨋든 b 라는 변수를 선언해준거 아닌가 ?? 라는 생각도 같이 들었다.
-
 
 하지만 `const b;` 는
 ![](https://velog.velcdn.com/images/su_jin1127/post/ef131188-6fe2-466e-8ca9-19f159ab5907/image.png)
@@ -220,7 +210,6 @@ c는 선언만 한거라서 안에 쓰레기 값이 할당되어 있다고 답�
 선언과 할당의 차이는 뭐냐는 질문을 받았다.
 **선언**과 **할당**의 차이는 뭘까 ?!
 
-
 ### 선언(Declaration) vs 할당(Assignment)
 
 - 선언: 내가 앞으로 c 라는 이름을 쓸 거니까 메모리에 공간 하나 확보해줘.
@@ -230,7 +219,6 @@ c는 선언만 한거라서 안에 쓰레기 값이 할당되어 있다고 답�
 자바스크립트에는 쓰레기 값이 존재하지 않는다.
 
 <img width="300px" src="https://velog.velcdn.com/images/su_jin1127/post/4726ebd4-e2d0-47c8-9c20-d6015d76a80a/image.png" />
-
 
 ```tsx
 var a = null;       // "비어있음"을 명시적으로 '할당'

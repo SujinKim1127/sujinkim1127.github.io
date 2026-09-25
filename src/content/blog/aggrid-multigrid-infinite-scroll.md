@@ -1,18 +1,13 @@
 ---
-layout: article
 title: "⚠️ agGrid에서 가상화 돔을 적용한 MultiGrid로 바꾸고 무한스크롤 적용하기"
-key: aggrid-multigrid-infinite-scroll
-tags:
-  - React
-  - Next.js
-  - TypeScript
+pubDate: 2024-12-23
+description: "문제상황 agGrid를 제거하기 위해 react virtualized 의 List 로 바꾸는 과정을 그동안 진행했었는데,, 상하좌우 스크롤이 필요한 grid에서 List 로는 좌우 스크롤이 불가능한 문제 가 발생했다."
+tags: ["React", "Next.js", "TypeScript"]
 ---
 
 ### 문제상황
 agGrid를 제거하기 위해 [`react-virtualized`](https://github.com/bvaughn/react-virtualized)의 `List`로 바꾸는 과정을 그동안 진행했었는데,,
 상하좌우 스크롤이 필요한 grid에서 `List`로는 __좌우 스크롤이 불가능한 문제__가 발생했다. 
-
-<!--more-->
 
 ### 💻 코드에 적용해본거
 
@@ -23,17 +18,13 @@ PinableGrid는 맨 왼쪽 열이 고정되어 있고, 나머지 열들이 스크
 ref를 사용해서 스크롤 동기화를 하려고 했더니 이 또한 라이브러리 속 내용을 수정해야 했다.
 다른 방법을 시도할때마다 라이브러리 속 내용을 수정해야하는 문제에 계속 마주쳤다 😭
 
-
-
 ### 🔎 검색해본거
 
 찾아보니 [table이 좌우 스크롤을 지원 안하는 것](https://github.com/bvaughn/react-virtualized/blob/master/docs/Table.md)처럼 List도 horizontal 스크롤 지원안하는것 같다.
 ![](https://velog.velcdn.com/images/su_jin1127/post/2a10a973-fe1d-4b4f-9b01-862ce94d5cc9/image.png)
 
-
 List가 좌우스크롤을 지원안하는 이유는........
 react-virtualized에는 [`MultiGrid`](https://github.com/bvaughn/react-virtualized/blob/master/docs/MultiGrid.md)가 있기 때문이다!!!!
-
 
 ## 🔑 해결방법
 
@@ -71,7 +62,6 @@ rowIndex === 0 조건은 헤더는 따로 디자인을 해야하고,
 
 여기서 1이 아닌 0으로 해버리면 index가 1인 열 앞에 공백 생겨버리는 문제가 발생한다. columns 배열 정의를 고정된 헤더와 같이 정의해서 그런것 같다!
 
-
 #### 무한스크롤 적용
 List에서 사용했던 props 중 하나인 onRowsRendered 함수가 MultiGrid에는 없어서 onSectionRendered 를 사용했고
 ```tsx
@@ -81,7 +71,6 @@ const handleRowsRendered = ({ columnStartIndex, columnStopIndex, rowStartIndex, 
     setPage(triggerPage);
   }
 };
-
 
 <MultiGrid
   	cellRenderer={cellRenderer}
@@ -104,23 +93,15 @@ const handleRowsRendered = ({ columnStartIndex, columnStopIndex, rowStartIndex, 
 
 렌더링 되는 마지막 row index의 값이 필요하기 때문에 rowStopIndex 파라미터를 사용해서 무한스크롤 계산에 적용했다.
 
-
-
-
 ### 💭 느낀점
 
-
-
 react-virtualized의 공식 문서를 봤음에도 불구하고 MultiGrid를 사용할 생각을 못했다... 사용하는 라이브러리 속에서 다른 방법을 찾아야하면 공식문서를 다시 한번 더 읽어보는 습관을 들여야할 것 같다.
-
 
 (+)
 Lighthouse 점수를 63점에서
 ![](https://velog.velcdn.com/images/su_jin1127/post/0be4cd8b-d01f-4faf-a8ae-8f6785ed7655/image.png)
 93점으로 올렸다!!!
 ![](https://velog.velcdn.com/images/su_jin1127/post/de3c0453-3db1-4b35-9c17-f57495ba0092/image.png)
-
-
 
 ---
 

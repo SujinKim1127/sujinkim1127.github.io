@@ -1,31 +1,43 @@
 # sujinkim1127.github.io
 
-Jekyll + [TeXt theme](https://github.com/kitian616/jekyll-TeXt-theme)로 만든 기술 블로그.
+[Astro](https://astro.build)로 만든 기술 블로그. GitHub Pages로 배포됩니다.
 
-## 로컬 실행
+## 개발
 
 ```bash
-bundle install
-bundle exec jekyll serve
+npm install
+npm run dev      # http://localhost:4321
+npm run build    # dist/ 로 정적 빌드
+npm run preview  # 빌드 결과 미리보기
 ```
 
-`http://localhost:4000`에서 확인.
+## 글 작성
 
-## 새 글 쓰기
+`src/content/blog/` 에 마크다운 파일을 추가합니다.
 
-`_posts/`에 `YYYY-MM-DD-제목.md` 형식으로 추가.
-
-```md
+```markdown
 ---
-layout: article
-title: "제목"
-key: unique-key
+title: "글 제목"
+pubDate: 2026-09-25
+description: "목록/메타에 노출될 한 줄 요약"
+tags: ["React", "TypeScript"]
 ---
 
-본문
+본문...
 ```
+
+- 파일명이 곧 URL 슬러그가 됩니다 (`src/content/blog/my-post.md` → `/posts/my-post`).
+- ` ```mermaid ` 코드 블록은 클라이언트에서 다이어그램으로 렌더링됩니다.
+- 코드 블록은 Shiki로 하이라이팅됩니다.
+
+## 구조
+
+- `src/pages/` — 라우트 (홈, 글 상세, 태그, 소개, RSS, 404)
+- `src/layouts/` — 공통 레이아웃
+- `src/content/blog/` — 글 마크다운
+- `src/styles/global.css` — 전역 스타일
+- `.github/workflows/deploy.yml` — Pages 배포
 
 ## 배포
 
-`main`에 push하면 GitHub Actions가 Jekyll을 빌드해서 Pages에 배포합니다.
-**주의**: 저장소 Settings → Pages → Source를 **GitHub Actions**로 설정해야 합니다 (기본값인 "Deploy from a branch"로는 커스텀 테마가 빌드되지 않습니다).
+`main` 브랜치에 push하면 GitHub Actions가 빌드 후 Pages에 배포합니다.

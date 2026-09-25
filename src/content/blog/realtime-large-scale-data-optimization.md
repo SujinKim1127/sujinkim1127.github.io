@@ -1,16 +1,11 @@
 ---
-layout: article
 title: "⚠️ 렌더링 최소화, 배칭 처리, WebWorker와 Throttle로 React 기반 실시간 대용량 데이터 처리 최적화"
-key: realtime-large-scale-data-optimization
-tags:
-  - JavaScript
-  - React
-  - 최적화
+pubDate: 2025-10-26
+description: "인포맥스 단말기 MFC 화면은 장 초반에 데이터가 다량으로 들어올때 많은 리얼 데이터가 들어오게 되면서 CPU가 올라가며 데이터가 밀려, 잠시 동안 멈춘것처럼 보이는 현상이 발생합니다."
+tags: ["JavaScript", "React", "최적화"]
 ---
 
 인포맥스 단말기 MFC 화면은 장 초반에 데이터가 다량으로 들어올때 많은 리얼 데이터가 들어오게 되면서 CPU가 올라가며 데이터가 밀려, 잠시 동안 멈춘것처럼 보이는 현상이 발생합니다.
-
-<!--more-->
 
 ![](https://velog.velcdn.com/images/su_jin1127/post/e760371c-86d3-4fb7-a641-e323c507f0ef/image.png)
 이렇게 실시간으로 들어오는 화면들을 여러개 띄웠을때 해당 현상이 주로 발생합니다. 이때 보이지 않는 데이터는 **렌더링 처리하지 않는 과정**이 필요한데 <u>불필요한 영역까지 렌더링</u> 하고 있어서 이때 메모리 누수가 발생했습니다.
@@ -31,7 +26,6 @@ WebView2를 도입한 이유는
    ![](https://velog.velcdn.com/images/su_jin1127/post/491faef2-968e-4c4d-90cc-dad6a3fa02dc/image.png)
     - 여기서 말하는 가상화 처리는 데이터의 총 길이가 10개 일때, 7개만 보인다면, 보이는 7개 영역만 렌더링 되도록 하는 기법입니다.
 - 웹으로 실시간 데이터 통신이 안되는 고객사(보안 상의 이유로)에 웹 화면도 제공할 수 있습니다.
-
 
 ## 개발 과정
 
@@ -70,7 +64,6 @@ setTickData (prev => [...newData, ...prev]); // 매번 전체 리렌더링 !
 
 useState를 사용할 경우, 상태가 변경될 때마다 컴포넌트가 리렌더링되며 성능 저하가 발생합니다.
 
-
 ```tsx
 // 성능 최적화된 Ref 기반 방식
 const allDataRef = useState<ProcessedWLData[]>([]);
@@ -86,13 +79,11 @@ const triggerRerender = useCallback(() => {
 
 triggerRerender 함수를 사용하면 필요할때만 리렌더링할 수 있도록 조절할 수 있습니다.
 
-
 ### 2️⃣ 데이터 맵핑 로직에 Web Worker 활용
 자바스크립트는 싱글 스레드 구조라서 화면 렌더링, 클릭 이벤트 처리, 데이터 연산이 모두 같은 스레드에서 실행됩니다. 그래서 실시간 데이터가 많아지면 렌더링과 연산이 충돌하게 됩니다.
 ![](https://velog.velcdn.com/images/su_jin1127/post/225172eb-2ba6-4bec-a33d-a1def2079867/image.png)
 
 이를 해결하기 위해 Web Worker를 사용했습니다. Worker는 메인 스레드와는 분리된 스레드에서 동작하며, 데이터 연산만 전담하게 했고, 결과만 메인으로 보내줍니다. 여기서 postMessage는 메인 스레드와 web worker 간에 데이터를 주고받는 통신 수단입니다.
-
 
 3111에서는 실시간으로 유입되는 데이터를 화면에 보기 좋게 가공해서 표에 넣는 작업이 필요합니다.
 
@@ -118,8 +109,6 @@ const processOrderBookData = (rawData) => {
 
 예를 들어, 
 호가창에서 중간가, 총매수호가잔량, 등락률 같은 경우에는 모든 항목에서 포맷 함수들을 사용하여 데이터 가공 처리가 필요하여 이 과정을 Worker에서 처리했습니다.
-
-
 
 ### 3️⃣ 화면 갱신 주기 조절
 마지막으로 throttle을 사용하여 화면 갱신 주기를 제한했습니다

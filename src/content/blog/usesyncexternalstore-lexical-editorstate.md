@@ -1,17 +1,11 @@
 ---
-layout: article
 title: "useSyncExternalStore로 Lexical EditorState를 툴바에 직접 연결하기"
-key: usesyncexternalstore-lexical-editorstate
-tags:
-  - React
-  - Lexical
-  - useSyncExternalStore
-  - TypeScript
+pubDate: 2026-07-26
+description: "에디터 툴바에 “투표가 이미 있으면 투표 버튼을 비활성화한다.”"
+tags: ["React", "Lexical", "useSyncExternalStore", "TypeScript"]
 ---
 
 에디터 툴바에 “투표가 이미 있으면 투표 버튼을 비활성화한다.”
-
-<!--more-->
 
 툴바에서 직접 투표 상태를 관리하는 것이 아니라 Lexical 에디터의 노드 트리에서 VoteNode가 있는지 읽어야 하는 상황
 

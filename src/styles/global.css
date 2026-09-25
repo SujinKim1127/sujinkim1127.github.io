@@ -1,0 +1,254 @@
+:root {
+  --bg: #ffffff;
+  --fg: #1a1a1a;
+  --muted: #6b7280;
+  --border: #ececec;
+  --accent: #1f9d64;
+  --code-bg: #f6f8fa;
+  --max-width: 44rem;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo',
+    'Pretendard', 'Segoe UI', 'Noto Sans KR', Roboto, sans-serif;
+  --font-mono: 'SFMono-Regular', 'JetBrains Mono', Consolas, Menlo, monospace;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121212;
+    --fg: #e6e6e6;
+    --muted: #9aa0a6;
+    --border: #2a2a2a;
+    --accent: #43c98a;
+    --code-bg: #1c1c1c;
+  }
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.75;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+.wrap {
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+/* Header */
+.site-header {
+  border-bottom: 1px solid var(--border);
+}
+.site-header .wrap {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+.site-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--fg);
+  text-decoration: none;
+}
+.site-nav {
+  display: flex;
+  gap: 1.1rem;
+  font-size: 0.95rem;
+}
+.site-nav a {
+  color: var(--muted);
+  text-decoration: none;
+}
+.site-nav a:hover {
+  color: var(--accent);
+}
+
+/* Footer */
+.site-footer {
+  margin-top: 4rem;
+  border-top: 1px solid var(--border);
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+.site-footer .wrap {
+  padding-top: 1.5rem;
+  padding-bottom: 2.5rem;
+}
+
+/* Main spacing */
+main {
+  padding-top: 2.5rem;
+}
+
+/* Post list */
+.post-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.post-list li {
+  padding: 1.4rem 0;
+  border-bottom: 1px solid var(--border);
+}
+.post-list li:last-child {
+  border-bottom: none;
+}
+.post-list a {
+  text-decoration: none;
+  color: var(--fg);
+}
+.post-list h2 {
+  margin: 0 0 0.35rem;
+  font-size: 1.2rem;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+}
+.post-list a:hover h2 {
+  color: var(--accent);
+}
+.post-list .excerpt {
+  margin: 0.35rem 0 0.5rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.post-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.tag {
+  display: inline-block;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.8rem;
+}
+.tag::before {
+  content: '#';
+  opacity: 0.6;
+}
+.tag:hover {
+  color: var(--accent);
+}
+
+/* Article */
+.article-header {
+  margin-bottom: 2.5rem;
+}
+.article-header h1 {
+  font-size: 1.9rem;
+  line-height: 1.35;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.9rem;
+}
+.prose h2 {
+  margin-top: 2.6rem;
+  font-size: 1.4rem;
+  letter-spacing: -0.01em;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px solid var(--border);
+}
+.prose h3 {
+  margin-top: 2rem;
+  font-size: 1.15rem;
+}
+.prose p,
+.prose ul,
+.prose ol {
+  margin: 1.1rem 0;
+}
+.prose a {
+  color: var(--accent);
+  text-underline-offset: 3px;
+}
+.prose img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+.prose blockquote {
+  margin: 1.4rem 0;
+  padding: 0.2rem 1.1rem;
+  border-left: 3px solid var(--accent);
+  color: var(--muted);
+}
+.prose code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--code-bg);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+}
+.prose pre {
+  background: var(--code-bg) !important;
+  padding: 1rem 1.1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  overflow-x: auto;
+  font-size: 0.85rem;
+  line-height: 1.6;
+}
+.prose pre code {
+  background: none;
+  padding: 0;
+  font-size: inherit;
+}
+.prose pre.mermaid {
+  background: transparent !important;
+  border: none;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+.prose table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.92rem;
+  margin: 1.4rem 0;
+}
+.prose th,
+.prose td {
+  border: 1px solid var(--border);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+.prose hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 2.5rem 0;
+}
+
+/* Page intro / headings */
+.page-title {
+  font-size: 1.6rem;
+  letter-spacing: -0.02em;
+  margin: 0 0 1.5rem;
+}
+.back-link {
+  display: inline-block;
+  margin-top: 3rem;
+  color: var(--muted);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+.back-link:hover {
+  color: var(--accent);
+}

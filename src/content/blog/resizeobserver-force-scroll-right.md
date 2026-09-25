@@ -1,12 +1,8 @@
 ---
-layout: article
 title: "⚠️ ResizeObserver 사용해서 강제 오른쪽 스크롤 만들기"
-key: resizeobserver-force-scroll-right
-tags:
-  - CSS
-  - JavaScript
-  - React
-  - 에러 해결
+pubDate: 2025-03-31
+description: "🚨문제상황 /state, /profit 에서는 처음으로 페이지에 접속했을때 오른쪽 끝으로 스크롤되는 현상이 제대로 적용되는데 /rate, /flow 에서는 적용이 안되는 현상 발생 (근데 tab을 바꾸면 적용됨)"
+tags: ["CSS", "JavaScript", "React", "에러 해결"]
 ---
 
 ## 🚨문제상황
@@ -17,9 +13,6 @@ tags:
 
 (근데 tab을 바꾸면 적용됨)
 ![](https://velog.velcdn.com/images/su_jin1127/post/cf3bad11-ecc0-476d-a2ec-f8debabae120/image.gif)
-
-<!--more-->
-
 
 ### 문제가 된 코드
 
@@ -50,14 +43,12 @@ useEffect는                                               scrollWidth와
 ```
 위와 같이 "타이밍"이 맞지 않아서 에러가 발생했던 것이다
 
-
 가장 먼저 작동되는 페이지와 작동이 안되는 페이지 간의 차이점을 찾아봤다.
 #### 스크롤이 작동하는 페이지와 작동안하는 페이지의 차이점
 | 작동 여부 | 차이점 |
 | --- | --- |
 | X | /rate랑 /flow 에서는 fetch 훅을 1️⃣번만 적용 |
 | O | /state랑 /profit은 fetch 훅이 2️⃣번 적용 |
-
 
 ##### 1번만 적용된 페이지의 렌더링 과정
 ![](https://velog.velcdn.com/images/su_jin1127/post/ce1d0e84-8bdf-4cef-a5eb-12df2e56bf5e/image.png)
@@ -75,7 +66,6 @@ useEffect는                                               scrollWidth와
 **레이아웃 계산 타이밍**
 `scrollWidth`와 `clientWidth`는 DOM이 완전히 렌더링된 후에만 정확한 값을 가지고, `/rate`에서는 이 값들이 정확하게 계산되기 전에 스크롤 위치를 설정하려고 시도할 가능성
 
-
 ### 💻 코드에 적용해본거
 - useLayoutEffect으로 바꿔보기
    - 안되는 이유는,,, DOM의 너비를 구해야하는데 useLayoutEffect는 DOM을 그리기 전에 동기적으로 실행하기 때문!
@@ -92,7 +82,6 @@ Key 값을 넣었을때 왜 작동이 안되는가에 대해 알아봤는데..
 Key 값이 변경되어 컴포넌트가 재마운트되어도, useEffect가 실행되는 시점에서 실제 테이블의 너비를 못 구할 수가 있다!
 
 ![](https://velog.velcdn.com/images/su_jin1127/post/c06b2977-05a2-4669-8fef-554d4a6d0e87/image.png)
-
 
 ## 🔑 해결방법
 
@@ -132,9 +121,7 @@ ResizeObserver에 대해 먼저 알아보자면 DOM 요소의 크기 변화를 �
 3. **크기 변화 감지**: 등록된 요소의 크기가 변경되면 콜백 함수 실행
 4. **정보 제공**: 콜백 함수는 변경된 요소의 새로운 크기 정보를 제공 받음
 
-
 ![](https://velog.velcdn.com/images/su_jin1127/post/3fba3f71-d601-4c75-ae6b-fbbec80d7e9c/image.png)
-
 
 ### ResizeObserver 사용할 때 주의사항
 - 필요 이상으로 여러 곳에서 남용하지 않기!!
@@ -142,8 +129,6 @@ ResizeObserver에 대해 먼저 알아보자면 DOM 요소의 크기 변화를 �
 - 메모리 누수 주의하기
    - unmount시 observer.disconnect() 반드시 호출하기
 - 콜백 내에서 무거운 연산은 피하기
-
-
 
 ### 💭 느낀점
 

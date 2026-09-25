@@ -1,20 +1,13 @@
 ---
-layout: article
 title: "⚠️ Stale Closure(오래된 클로저) useMemo로 해결하기"
-key: stale-closure-usememo
-tags:
-  - JavaScript
-  - React
-  - 에러 해결
+pubDate: 2025-01-14
+description: "🚨문제상황"
+tags: ["JavaScript", "React", "에러 해결"]
 ---
 
 ## 🚨문제상황
 
 ![](https://velog.velcdn.com/images/su_jin1127/post/95b034d6-cb5e-4715-a669-58f14e560566/image.png)
-
-<!--more-->
-
-
 
 이런식으로 데이터가 있으면 
 선택된 Tab이 Animal 인 상태에서 cat을 누르면 Animal을 전달하고,

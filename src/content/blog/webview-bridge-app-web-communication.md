@@ -1,18 +1,11 @@
 ---
-layout: article
 title: "앱 속 웹뷰는 어떻게 대화할까 — 웹뷰 브릿지 이야기"
-key: webview-bridge-app-web-communication
-tags:
-  - WebView
-  - Bridge
-  - React Native
-  - iOS
-  - Android
+pubDate: 2026-09-02
+description: "앱 안에 글쓰기 화면이 웹뷰로 떠 있는 상황."
+tags: ["WebView", "Bridge", "React Native", "iOS", "Android"]
 ---
 
 앱 안에 글쓰기 화면이 웹뷰로 떠 있는 상황.
-
-<!--more-->
 
 - 글씨를 굵게 처리하고 싶으면
   - App에서 Web으로 굵게 처리하는 명령을 보내고

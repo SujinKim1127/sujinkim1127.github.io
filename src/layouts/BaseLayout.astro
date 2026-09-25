@@ -1,0 +1,44 @@
+---
+import BaseHead from '../components/BaseHead.astro';
+import { SITE_TITLE, GITHUB_URL } from '../consts';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description } = Astro.props;
+const year = new Date().getFullYear();
+---
+
+<!doctype html>
+<html lang="ko">
+  <head>
+    <BaseHead title={title} description={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="site-title" href="/">{SITE_TITLE}</a>
+        <nav class="site-nav">
+          <a href="/">글</a>
+          <a href="/tags">태그</a>
+          <a href="/about">소개</a>
+          <a href={GITHUB_URL} target="_blank" rel="noopener">GitHub</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <div class="wrap">
+        <slot />
+      </div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap">
+        © {year} {SITE_TITLE}. Built with Astro.
+      </div>
+    </footer>
+  </body>
+</html>

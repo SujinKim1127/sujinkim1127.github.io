@@ -1,9 +1,23 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# generated
 _site/
-.sass-cache/
 .jekyll-cache/
 .jekyll-metadata
-vendor/
-.bundle/
-.DS_Store
+.sass-cache/
 .next/
-node_modules/
+
+# env
+.env
+.env.production
+
+# macOS
+.DS_Store
+
+# logs
+npm-debug.log*

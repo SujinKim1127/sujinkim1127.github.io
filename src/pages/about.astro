@@ -1,0 +1,18 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { GITHUB_URL } from '../consts';
+---
+
+<BaseLayout title="소개" description="sujinkim1127 기술 블로그 소개">
+  <h1 class="page-title">소개</h1>
+  <div class="prose">
+    <p>안녕하세요, <strong>sujinkim1127</strong>입니다.</p>
+    <p>
+      프론트엔드 개발을 하며 배운 것들, 부딪힌 문제와 해결 과정을 기록하는
+      블로그입니다.
+    </p>
+    <p>
+      <a href={GITHUB_URL} target="_blank" rel="noopener">GitHub →</a>
+    </p>
+  </div>
+</BaseLayout>

@@ -1,19 +1,11 @@
 ---
-layout: article
 title: "⚠️ 양쪽에 고정된 헤더가 있는 그리드 작업을 하며 발생한 수많은 에러 해결 과정기"
-key: fixed-header-grid-error-troubleshooting
-tags:
-  - CSS
-  - JavaScript
-  - React
-  - TypeScript
-  - 에러 해결
+pubDate: 2025-02-20
+description: "양쪽에 고정된 헤더가 있는 그리드를 만들며 전달받은 비율을 계산해서 너비를 정하는 로직을 짜게 된 그 과정에 대한 이야기입니다!"
+tags: ["CSS", "JavaScript", "React", "TypeScript", "에러 해결"]
 ---
 
 양쪽에 고정된 헤더가 있는 그리드를 만들며 전달받은 비율을 계산해서 너비를 정하는 로직을 짜게 된 그 과정에 대한 이야기입니다!
-
-<!--more-->
-
 
 ![](https://velog.velcdn.com/images/su_jin1127/post/d4d9f8fe-a567-4511-a673-5c4212eb4149/image.png)
 
@@ -23,8 +15,6 @@ tags:
 - 전체 스크롤이 생기지 않고 내부에서만 스크롤이 생기도록 만들어야 했고,
 - 보이는 cell의 갯수를 입력받아 그만큼의 cell 영역만 보이도록 만들어야 했다
 (전체 data의 길이는 7인데 보이는 cell 개수가 4이면 4개만 보이고 나머지는 스크롤을 해서 볼 수 있도록)
-
-
 
 정말 많은 트러블슈팅이 다음과 같은 고민을 하다가 발생하게 되었다.
 
@@ -85,7 +75,6 @@ tags:
 ```
 이런식으로 한 행씩 전달해주기 때문에 내부 디자인을 적용하려면 이 로직이 반드시 필요했다!! (하나씩 렌더링해주고 있기 때문에..)
 
-
 ```tsx
 // widthRatio = [왼쪽, 중앙개별, 오른쪽]
     const thresholdWidthArr = [
@@ -126,14 +115,11 @@ tags:
 
 항상 보이는 cell의 갯수가 고정된 것이 아니고, 전체 그리드의 길이도 고정된 것이 아니니까 이를 유동적으로 바꾸기 위해 노력했다..
 
-
-
 이 문제를 해결하고 나서도 다른 문제가 발생했다.
 
 ### 3️⃣ Grid 전체 길이를 ref로 구했는데 초기값이 적용되었다가 실제값으로 바뀌는 flickering 현상
 
 이거는 전에 `useLayoutEffect`를 사용하여 비슷한 문제를 해결한 경험이 있어서 해당 방식을 사용했더니 해결할 수 있었다
-
 
 ## 적용된 디자인
 
@@ -142,7 +128,6 @@ tags:
 보이는 갯수를 수정하면 cell의 width가 바뀌도록 만든 과정이다!
 
 ![실제화면](https://velog.velcdn.com/images/su_jin1127/post/3b1ef44c-ab46-40bb-82c6-717e3d780a21/image.gif)
-
 
 <br/>
 

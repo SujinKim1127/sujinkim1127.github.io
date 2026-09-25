@@ -1,0 +1,26 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const posts = await getCollection('blog');
+const counts = new Map<string, number>();
+for (const post of posts) {
+  for (const tag of post.data.tags) {
+    counts.set(tag, (counts.get(tag) ?? 0) + 1);
+  }
+}
+const tags = [...counts.entries()].sort((a, b) => b[1] - a[1]);
+---
+
+<BaseLayout title="태그" description="태그별 글 모아보기">
+  <h1 class="page-title">태그</h1>
+  <div class="post-meta" style="gap: 0.9rem; font-size: 0.95rem;">
+    {
+      tags.map(([tag, count]) => (
+        <a class="tag" href={`/tags/${encodeURIComponent(tag)}`}>
+          {tag} ({count})
+        </a>
+      ))
+    }
+  </div>
+</BaseLayout>
