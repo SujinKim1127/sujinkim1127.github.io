@@ -37,7 +37,10 @@ const year = new Date().getFullYear();
 
     <footer class="site-footer">
       <div class="wrap">
-        © {year} {SITE_TITLE}. Built with Astro.
+        © {year}{' '}
+        <a class="footer-link" href={GITHUB_URL} target="_blank" rel="noopener"
+          >@sujinKim1127</a
+        >. Built with Astro.
       </div>
     </footer>
   </body>
