@@ -1,18 +1,302 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { GITHUB_URL } from '../consts';
+import { GITHUB_URL, EMAIL } from '../consts';
+
+const stack = [
+  'React',
+  'TypeScript',
+  'Next.js',
+  'Zustand',
+  'useSWR',
+  'TailwindCSS',
+  'd3',
+  'turboRepo',
+];
+
+const projects = [
+  {
+    period: '2025.09',
+    title: '모노레포 속 디자인시스템 모듈화 후 사내망 배포 파이프라인 구축',
+    problem: '사내 디자인시스템 수정 시 최소 7개 이상의 프로젝트 점검 필요',
+    points: [
+      'tsup 빌드를 통해 배포 가능한 dist 산출물 생성',
+      'peerDependencies를 활용하여 불필요한 의존성 제거, 외부 프로젝트와의 충돌 최소화',
+      'verdaccio + Docker 기반 사내 레지스트리에 배포, Jenkins로 CI/CD 파이프라인 구축',
+    ],
+    result:
+      '동일한 개발 환경에서 구축된 모노레포 공통 컴포넌트를 기존 외부 프로젝트에도 확장 가능하도록 배포하여 초기 세팅 시간 단축 및 유지보수 효율 향상',
+    links: [],
+  },
+  {
+    period: '2025.07',
+    title: '인포맥스 단말기 현재가 화면 성능 개선',
+    problem:
+      '주식 장 초반, 초당 수천 건의 실시간 데이터 유입으로 CPU 사용량 급상승 및 메모리 누수 발생, 단말기 사용 중 화면 지연 문제 빈번',
+    points: [
+      'react-virtualized를 사용하여 보이는 영역만 렌더링 되도록 가상화 처리',
+      '실시간 데이터를 useRef + throttle 방식으로 Batching 처리하여 렌더링 최적화',
+      'WebWorker로 데이터 연산 작업을 Worker에서 처리하여 메인 스레드 부하 감소',
+    ],
+    result: [
+      { t: 'CPU 사용량 ' },
+      { t: '약 50% 절감', em: true },
+      { t: ', 메모리 누수 해소' },
+    ],
+    links: [],
+  },
+  {
+    period: '2025.04 – 09',
+    title: '금융솔루션 – ICAMS 프로젝트 (전담)',
+    points: [
+      'Atomic Design + FSD Architecture 도입하여 컴포넌트 구조 체계화',
+      '엑셀처럼 resize, cell select(row, col 전체 선택 가능)이 가능한 그리드 제작',
+      '재귀 기반 Infinite Accordion 컴포넌트 구현, 접힘 상태에 따른 그리드 데이터 동적 처리',
+      '인턴으로서 프로젝트 메인 개발자로 배정되어 문제 상황을 파악하고 회의 제안',
+      '데이터 팀과의 의사소통 비용을 해결하기 위해 Storybook으로 UI/인터랙션 테스트 문서화',
+      '기획에서 누락된 UI 동작과 API 요구사항을 초기에 확정시켜 디자인 수정 건수를 감소시키고 개발 속도 향상',
+    ],
+    links: [
+      {
+        text: 'Component Architecture 정리',
+        href: 'https://windy-museum-13d.notion.site/Component-Architecture-54ef754240104f3ba0f958355778fe38',
+        external: true,
+      },
+    ],
+  },
+  {
+    period: '2025.02 – 04',
+    title: '스마일게이트 GMM/GMK ASP 개발 (PC/Mobile 개발)',
+    points: [
+      '구조는 같고 데이터만 다른 8개 페이지에 대응하기 위해, 공통 맵핑 로직을 Cursor를 사용해 함수 단위로 분리해서 자동화하여 작업 시간을 2시간에서 20분으로 단축',
+    ],
+    troubles: [
+      {
+        text: '양쪽 열에 고정된 헤더 그리드를 제작하며 발생한 오류 해결 과정기',
+        href: '/posts/fixed-header-grid-error-troubleshooting',
+      },
+      {
+        text: '일부 페이지에서 초기 우측 스크롤 미적용 현상 → ResizeObserver로 해결',
+        href: '/posts/resizeobserver-force-scroll-right',
+      },
+    ],
+    links: [],
+  },
+  {
+    period: '2024.10 – 2025.01',
+    title: 'Global Market Monitor 프로젝트 + 리팩토링',
+    points: [
+      'bitBucket과 사내메신저(두레이)를 연동하여 PR 알림 자동화',
+      '라이브러리 대체로 번들 용량을 줄여 LightHouse 점수 63점에서 93점으로 개선',
+      'agGrid를 react-virtualized로 변경, font 최적화 진행',
+      '[한화투자증권] 기존 서비스 개편 사항 작업',
+      '[메리츠] 파라미터 기반 다크모드 구조 설계/적용, 동일 구조를 [한화] 프로젝트에 제안·적용해 코드 재활용이 가능하도록 개선하여 유지보수성과 확장성 강화',
+      '기존의 책임이 불분명한 Container/Presenter 구조를 Template, useFetches, useProcess로 분리하여 코드 가독성 개선',
+    ],
+    trouble: {
+      problem: '초당 10회 이상 발생하는 동일 조회 요청으로 인한 서버 리소스 낭비',
+      result: [
+        { t: 'Redis로 서버사이드에서 캐싱 처리하여 중복 데이터 요청 방지 → 하루 10,000건 들어오던 서버 요청 800건으로 감소 ' },
+        { t: '(약 92% 감소)', em: true },
+      ],
+    },
+    links: [
+      {
+        text: 'agGrid를 react-virtualized로 변경',
+        href: '/posts/aggrid-multigrid-infinite-scroll',
+      },
+    ],
+  },
+];
+
+const awards = [
+  { text: '2025 구름톤 16기 — 최우수상' },
+  {
+    text: '2023 서울 우먼 테크 해커톤 — 최우수상',
+    href: 'https://drive.google.com/file/d/1xvGElaKvoKIYgRmrZtG4rYB_BavZffQr/view',
+  },
+  {
+    text: '2023 숭실대학교 벤처스타트업 아카데미 SW경진대회 — 장려상',
+    href: 'https://drive.google.com/file/d/1dy9z95uIQXb6WjTKXJcEDXEIWf679pHt/view',
+  },
+];
+
+const education = [
+  {
+    period: '2019.03 – 2024.02',
+    title: '숭실대학교 IT대학 글로벌미디어학부 · 컴퓨터학부 복수전공 학사',
+  },
+];
+
+const activities = [
+  { period: '2022.08 – 2023.09', title: 'GDSC Soongsil 2기 Web/Mobile' },
+  { period: '2023.09 – 2023.12', title: 'Kusitms 28기 Web FrontEnd' },
+  { period: '2023.11 – 2024.08', title: 'GDSC Soongsil 3기 Core member' },
+  { period: '2024.07 – 2024.08', title: 'DND 11기 FrontEnd Developer' },
+];
 ---
 
-<BaseLayout title="소개" description="sujinkim1127 기술 블로그 소개">
-  <h1 class="page-title">소개</h1>
-  <div class="prose">
-    <p>안녕하세요, <strong>sujinkim1127</strong>입니다.</p>
-    <p>
-      프론트엔드 개발을 하며 배운 것들, 부딪힌 문제와 해결 과정을 기록하는
-      블로그입니다.
+<BaseLayout title="소개" description="호기심으로 문제를 해결하며 성장하는 프론트엔드 개발자 김수진입니다.">
+  <section class="intro">
+    <p class="lede">
+      사용자의 니즈를 읽고 직접 구현하는
+      <strong>프론트엔드 엔지니어 김수진</strong>입니다.
     </p>
-    <p>
-      <a href={GITHUB_URL} target="_blank" rel="noopener">GitHub →</a>
+    <p class="intro-desc">
+      '세상을 더 편리하게 만들고 싶다'는 마음으로 개발자를 꿈꾸며 컴퓨터공학을 전공했습니다. 취미로 콘텐츠를 리뷰하고 분석하는 계정을 3년 넘게 꾸준히 운영하고 있습니다. 계정을 운영하며 구독자분들이 좋아하는 게시물이 무엇인지 파악하여 팔로워 8천 명을 모았습니다.
     </p>
-  </div>
+    <p class="intro-desc">
+      사용자의 반응을 읽어서 니즈를 이해하는 일과 그것을 직접 구현하는 일 — 이 두 가지를
+      동시에 할 수 있는 자리가 콘텐츠 플랫폼의 프론트엔드 엔지니어라고 생각합니다.
+    </p>
+    <div class="links">
+      <a href={GITHUB_URL} target="_blank" rel="noopener">GitHub</a>
+      <a href={`mailto:${EMAIL}`}>{EMAIL}</a>
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">기술 스택</h2>
+    <div class="stack">
+      {stack.map((s) => <span class="chip">{s}</span>)}
+    </div>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">경력</h2>
+    <div class="career-head">
+      <span class="career-org"><strong>연합인포맥스</strong> · FrontEnd Developer (인턴)</span>
+      <span class="career-period">2024.09 – 2025.09</span>
+    </div>
+    <p class="career-summary">
+      금융정보 기관과 개인투자자에게 금융 관련 뉴스, 실시간 금융 데이터, 분석 프로그램을
+      전용 회선과 인터넷을 통해 전달하는 기업
+    </p>
+
+    <ol class="timeline">
+      {
+        projects.map((p) => (
+          <li>
+            <div class="timeline-period">{p.period}</div>
+            <div class="timeline-body">
+              <h3>{p.title}</h3>
+              {p.problem && (
+                <p class="problem">
+                  <span>문제</span> {p.problem}
+                </p>
+              )}
+              <ul>
+                {p.points.map((pt) => (
+                  <li>{pt}</li>
+                ))}
+              </ul>
+              {p.result && (
+                <p class="result">
+                  <span>성과</span>{' '}
+                  {typeof p.result === 'string'
+                    ? p.result
+                    : p.result.map((r) =>
+                        r.em ? <b class="fig">{r.t}</b> : r.t
+                      )}
+                </p>
+              )}
+              {p.troubles && (
+                <div class="trouble-block">
+                  <p class="trouble-label">Trouble Shooting</p>
+                  <ul>
+                    {p.troubles.map((t) => (
+                      <li>
+                        <a href={t.href}>{t.text}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {p.trouble && (
+                <div class="trouble-block">
+                  <p class="trouble-label">Trouble Shooting</p>
+                  <p class="problem">
+                    <span>문제</span> {p.trouble.problem}
+                  </p>
+                  <p class="result">
+                    <span>해결</span>{' '}
+                    {typeof p.trouble.result === 'string'
+                      ? p.trouble.result
+                      : p.trouble.result.map((r) =>
+                          r.em ? <b class="fig">{r.t}</b> : r.t
+                        )}
+                  </p>
+                </div>
+              )}
+              {p.links.length > 0 && (
+                <p class="related">
+                  관련 글:{' '}
+                  {p.links.map((l, i) => (
+                    <>
+                      {i > 0 && <span class="sep">·</span>}
+                      <a
+                        href={l.href}
+                        target={l.external ? '_blank' : undefined}
+                        rel={l.external ? 'noopener' : undefined}
+                      >
+                        {l.text}
+                      </a>
+                    </>
+                  ))}
+                </p>
+              )}
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">수상</h2>
+    <ul class="plain-list plain-list--flush">
+      {
+        awards.map((a) => (
+          <li>
+            {a.text}
+            {a.href && (
+              <>
+                {' '}
+                <a class="award-link" href={a.href} target="_blank" rel="noopener">
+                  발표자료
+                </a>
+              </>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">학력</h2>
+    <ul class="date-list">
+      {
+        education.map((e) => (
+          <li>
+            <span class="date-period">{e.period}</span>
+            <span class="date-title">{e.title}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
+
+  <section class="about-section">
+    <h2 class="section-heading">활동</h2>
+    <ul class="date-list">
+      {
+        activities.map((a) => (
+          <li>
+            <span class="date-period">{a.period}</span>
+            <span class="date-title">{a.title}</span>
+          </li>
+        ))
+      }
+    </ul>
+  </section>
 </BaseLayout>
