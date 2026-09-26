@@ -137,17 +137,29 @@ main {
   font-size: 0.82rem;
 }
 .tag {
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
   color: var(--muted);
   text-decoration: none;
-  font-size: 0.8rem;
+  font-size: 0.78rem;
+  line-height: 1;
+  padding: 0.25rem 0.6rem;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s;
 }
 .tag::before {
-  content: '#';
-  opacity: 0.6;
+  content: "#";
+  opacity: 0.55;
+  margin-right: 0.08em;
 }
 .tag:hover {
   color: var(--accent);
+  border-color: var(--accent);
 }
 
 /* Article */
