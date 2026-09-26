@@ -1,15 +1,17 @@
 ---
 title: "React에서 return; 과 return null; 뭐가 다를까 ?"
 pubDate: 2026-01-24
-description: "React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ? 회사에서 아래와 같은 상황으로 <img width=\"400px\" src=\"https://velog.velcdn.com/images/su jin1127/post/d302c"
+description: "React 컴포넌트에서 return;과 return null;은 뭐가 다를까? null과 undefined의 차이부터 React Reconciler 내부 동작까지 파고든 기록."
 tags: ["JavaScript", "React"]
 ---
 
 React의 컴포넌트에서 return;과 return null;의 차이는 뭘까 ?
 
-회사에서 아래와 같은 상황으로 
+회사에서 아래와 같은 상황으로 코드 리뷰가 제안된 PR이 있었다.
+
 <img width="400px" src="https://velog.velcdn.com/images/su_jin1127/post/d302c325-b6c3-46b8-a035-089d089ea37a/image.png" />
-코드 리뷰가 제안된 PR이 있어서 스크럼때 react에서의 null과 undefined 차이에 대해 이야기를 하다가 _내가 자바스크립트와 리액트에 대해 잘 알고 있나?_ 라는 생각이 문득 들어서 자세하게 찾아봤다.
+
+스크럼때 react에서의 null과 undefined 차이에 대해 이야기를 하다가 _내가 자바스크립트와 리액트에 대해 잘 알고 있나?_ 라는 생각이 문득 들어서 자세하게 찾아봤다.
 
 ---
 
