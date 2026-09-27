@@ -256,6 +256,101 @@ main {
   margin: 2.5rem 0;
 }
 
+/* ── Caret bug demo (embedded diagram in OSS post) ── */
+.caret-demo {
+  --cd-surface: #ffffff;
+  --cd-faint: #8c9ba2;
+  --cd-grid: #cbdde1;
+  --cd-caret: #e0342a;
+  --cd-ok: #1f7a5c;
+  margin: 1.6rem 0;
+}
+@media (prefers-color-scheme: dark) {
+  .caret-demo {
+    --cd-surface: #161f24;
+    --cd-faint: #74868d;
+    --cd-grid: #2b3a41;
+    --cd-caret: #ff5c4d;
+    --cd-ok: #4fbf92;
+  }
+}
+.caret-demo .paper {
+  font-family: var(--font-mono);
+  font-size: 0.9rem;
+  background: var(--cd-surface);
+  background-image:
+    linear-gradient(to right, var(--cd-grid) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--cd-grid) 1px, transparent 1px);
+  background-size: 1.75rem 2.25rem;
+  border: 1px solid var(--cd-grid);
+  border-radius: 3px;
+  padding: 0.75rem 1rem;
+  display: flex;
+  flex-direction: column;
+  overflow-x: auto;
+}
+.caret-demo .line {
+  height: 2.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.125rem;
+  white-space: nowrap;
+  margin: 0;
+}
+.caret-demo .line.dim,
+.caret-demo .dim {
+  color: var(--cd-faint);
+}
+.caret-demo .caret {
+  display: inline-block;
+  width: 2px;
+  height: 1.25rem;
+  background: var(--cd-caret);
+  vertical-align: middle;
+  animation: cd-blink 1.1s steps(2, start) infinite;
+}
+@keyframes cd-blink {
+  50% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .caret-demo .caret {
+    animation: none;
+  }
+}
+.caret-demo .tag {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--cd-faint);
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: none;
+  background: none;
+  border-radius: 0;
+}
+.caret-demo .tag::before {
+  content: none;
+}
+.caret-demo .tag.bad {
+  color: var(--cd-caret);
+}
+.caret-demo .tag.good {
+  color: var(--cd-ok);
+}
+.caret-demo .duo {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1.25rem;
+  margin: 1rem 0;
+}
+.caret-demo > .paper {
+  margin: 0.5rem 0;
+}
+
 /* Page intro / headings */
 .page-title {
   font-size: 1.6rem;
