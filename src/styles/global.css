@@ -435,8 +435,11 @@ main {
   font-size: 0.85rem;
   white-space: nowrap;
 }
+.career-company {
+  margin-bottom: 2rem;
+}
 .career-summary {
-  margin: 0 0 1.8rem;
+  margin: 0;
   color: var(--muted);
   font-size: 0.92rem;
   line-height: 1.6;
@@ -496,6 +499,22 @@ main {
   margin: 0.35rem 0;
   line-height: 1.65;
 }
+.timeline-body code {
+  font-family: var(--font-mono);
+  font-size: 0.85em;
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  padding: 0.05em 0.35em;
+  border-radius: 4px;
+}
+.timeline-body ul.sub {
+  margin: 0.3rem 0 0.2rem;
+  padding-left: 1.1rem;
+  list-style: circle;
+}
+.timeline-body ul.sub li {
+  font-size: 0.92rem;
+}
 .timeline-body .problem,
 .timeline-body .result {
   margin: 0 0 0.6rem;
@@ -509,6 +528,14 @@ main {
 .timeline-body .fig {
   color: var(--accent);
   font-weight: 700;
+}
+.project-note {
+  margin: 0.9rem 0 0;
+  padding-left: 0.8rem;
+  border-left: 2px solid var(--accent);
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-style: italic;
 }
 .timeline-body .problem span,
 .timeline-body .result span {
@@ -550,6 +577,18 @@ main {
   font-size: 0.88rem;
   color: var(--muted);
 }
+.related-label {
+  display: block;
+  margin-bottom: 0.3rem;
+}
+.related ul {
+  margin: 0;
+  padding-left: 1.1rem;
+  list-style: disc;
+}
+.related li {
+  margin: 0.2rem 0;
+}
 .related a,
 .award-link {
   color: var(--accent);
@@ -559,10 +598,6 @@ main {
 .related a:hover,
 .award-link:hover {
   text-decoration: underline;
-}
-.related .sep {
-  margin: 0 0.4rem;
-  opacity: 0.5;
 }
 .award-link {
   font-size: 0.85rem;

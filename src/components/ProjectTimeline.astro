@@ -1,0 +1,101 @@
+---
+interface Props {
+  projects: any[];
+}
+const { projects } = Astro.props;
+---
+
+<ol class="timeline">
+  {
+    projects.map((p) => (
+      <li>
+        <div class="timeline-period">{p.period}</div>
+        <div class="timeline-body">
+          <h3>{p.title}</h3>
+          {p.problem && (
+            <p class="problem">
+              <span>문제</span> {p.problem}
+            </p>
+          )}
+          <ul>
+            {p.points.map((pt) =>
+              typeof pt === 'string' ? (
+                <li>{pt}</li>
+              ) : Array.isArray(pt) ? (
+                <li>
+                  {pt.map((seg) => (seg.code ? <code>{seg.t}</code> : seg.t))}
+                </li>
+              ) : (
+                <li>
+                  {pt.text}
+                  {pt.sub && pt.sub.length > 0 && (
+                    <ul class="sub">
+                      {pt.sub.map((s) => (
+                        <li>{s}</li>
+                      ))}
+                    </ul>
+                  )}
+                </li>
+              )
+            )}
+          </ul>
+          {p.result && (
+            <p class="result">
+              <span>성과</span>{' '}
+              {typeof p.result === 'string'
+                ? p.result
+                : p.result.map((r) => (r.em ? <b class="fig">{r.t}</b> : r.t))}
+            </p>
+          )}
+          {p.troubles && (
+            <div class="trouble-block">
+              <p class="trouble-label">Trouble Shooting</p>
+              <ul>
+                {p.troubles.map((t) => (
+                  <li>
+                    <a href={t.href}>{t.text}</a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {p.trouble && (
+            <div class="trouble-block">
+              <p class="trouble-label">Trouble Shooting</p>
+              <p class="problem">
+                <span>문제</span> {p.trouble.problem}
+              </p>
+              <p class="result">
+                <span>해결</span>{' '}
+                {typeof p.trouble.result === 'string'
+                  ? p.trouble.result
+                  : p.trouble.result.map((r) =>
+                      r.em ? <b class="fig">{r.t}</b> : r.t
+                    )}
+              </p>
+            </div>
+          )}
+          {p.note && <p class="project-note">{p.note}</p>}
+          {p.links && p.links.length > 0 && (
+            <div class="related">
+              <span class="related-label">관련 글</span>
+              <ul>
+                {p.links.map((l) => (
+                  <li>
+                    <a
+                      href={l.href}
+                      target={l.external ? '_blank' : undefined}
+                      rel={l.external ? 'noopener' : undefined}
+                    >
+                      {l.text}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
+      </li>
+    ))
+  }
+</ol>
