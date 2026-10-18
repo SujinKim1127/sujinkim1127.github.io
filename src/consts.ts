@@ -3,3 +3,4 @@ export const SITE_DESCRIPTION = "개발하며 배운 것들을 기록하는 기�
 export const SITE_AUTHOR = "sujinkim1127";
 export const GITHUB_URL = "https://github.com/SujinKim1127";
 export const EMAIL = "1127sujink@naver.com";
+export const GA_MEASUREMENT_ID = "G-FVHMWY9646";
